@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <footer th:fragment="site-footer">
+        <div class="container">
+            <p>&copy; <span th:text="${#dates.year(#dates.createNow())}"></span> Cinema XXI KW Super. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

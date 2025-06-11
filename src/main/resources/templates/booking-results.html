@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Pencarian Booking</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section class="page-title-section">
+        <div class="container">
+            <h1>Hasil Pencarian Booking</h1>
+        </div>
+    </section>
+
+    <section id="booking-results-list" class="movie-section">
+        <div class="container">
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            
+            <p th:unless="${error}">Menampilkan hasil untuk <strong th:text="${searchType}"></strong>: <em th:text="${searchValue}"></em></p>
+
+            <div th:if="${bookings == null or bookings.empty}" th:unless="${error}">
+                <p>Tidak ada pemesanan ditemukan.</p>
+            </div>
+
+            <div class="booking-list" th:unless="${bookings == null or bookings.empty}">
+                <div class="booking-item" th:each="booking : ${bookings}">
+                    <h4>Booking ID: <span th:text="${booking.id}">ID</span></h4>
+                    <p><strong>Film:</strong> <span th:text="${booking.showtime.movie.title}">Judul Film</span></p>
+                    <p><strong>Jadwal:</strong> <span th:text="${#temporals.format(booking.showtime.showDate, 'dd MMM yy')} + ' ' + ${#temporals.format(booking.showtime.showTime, 'HH:mm')}">Tanggal</span></p>
+                    <p><strong>Studio:</strong> <span th:text="${booking.showtime.theater != null ? booking.showtime.theater.name : 'N/A'}">Studio</span></p>
+                    <p><strong>Kursi:</strong> <span th:text="${#strings.listJoin(booking.seats.![seatNumber], ', ')}">A1,A2</span></p>
+                    <p><strong>Total Harga:</strong> Rp <span th:text="${#numbers.formatDecimal(booking.totalPrice, 0, 'POINT', 0, 'COMMA')}">0</span></p>
+                    <p><strong>Status:</strong> <span th:text="${booking.status}" th:classappend="${booking.status.name() == 'CANCELLED' ? 'status-cancelled' : 'status-confirmed'}">Status</span></p> </div>
+                </div>
+             <div style="margin-top: 20px;">
+                <a th:href="@{/bookings/search}" class="btn btn-secondary">Cari Lagi</a>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

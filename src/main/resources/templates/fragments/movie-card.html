@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div class="movie-card" th:fragment="movie-card(movie)">
+      <img th:src="${movie.posterUrl != null ? movie.posterUrl : '/images/default-poster.png'}" th:alt="${movie.title} + ' Poster'" onerror="this.onerror=null;this.src='/images/default-poster.png';" />
+      <h4 th:text="${movie.title}">Judul Film</h4>
+      <p><strong>Genre:</strong> <span th:text="${movie.genre}">Genre</span></p>
+      <p><strong>Durasi:</strong> <span th:text="${movie.duration}">0</span> Menit</p>
+      <a th:href="@{/movies/{id}(id=${movie.id})}" class="btn btn-primary">Lihat Detail</a>
+    </div>
+  </body>
+</html>

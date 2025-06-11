@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Berhasil</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section class="page-title-section success-bg">
+        <div class="container">
+            <h1>Pemesanan Berhasil!</h1>
+        </div>
+    </section>
+
+    <section id="booking-result" class="movie-section">
+        <div class="container text-center">
+            <div class="icon-success">&#10004;</div> <p th:text="${booking.message}">Pesan sukses.</p>
+            <p><strong>ID Booking Anda:</strong> <span th:text="${booking.bookingId}">IDBOOKING</span></p>
+            <p>Detail pesanan telah dikirimkan ke email Anda.</p>
+            <hr>
+            <h4>Detail yang Dipesan:</h4>
+            <p><strong>Film:</strong> <span th:text="${booking.movieTitle}">Judul Film</span></p>
+            <p><strong>Jadwal:</strong> <span th:text="${booking.showDate} + ' ' + ${booking.showTime}">Tanggal Waktu</span></p>
+            <p><strong>Kursi:</strong> <span th:text="${#strings.listJoin(booking.seatNumbers, ', ')}">A1, A2</span></p>
+            <p><strong>Total Harga:</strong> Rp <span th:text="${#numbers.formatDecimal(booking.totalPrice, 0, 'POINT', 0, 'COMMA')}">0</span></p>
+            
+            <div style="margin-top: 30px;">
+                <a th:href="@{/}" class="btn btn-primary">Kembali ke Beranda</a>
+                <a th:href="@{/bookings/search}" class="btn btn-secondary">Cek Booking Lain</a>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

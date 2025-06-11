@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Film</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .tabs {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .tabs a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid transparent;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .tabs a.active, .tabs a:hover {
+            background-color: #f0f0f0;
+            border-color: #ddd;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section class="page-title-section">
+        <div class="container">
+            <h1>Daftar Film</h1>
+        </div>
+    </section>
+
+    <section id="movie-list-content" class="movie-section">
+        <div class="container">
+            <div class="tabs">
+                <a th:each="genreOpt : ${availableGenres}"
+                   th:href="@{/movies(genre=${genreOpt == 'All' ? '' : genreOpt})}"
+                   th:text="${genreOpt == 'All' ? 'Semua Genre' : genreOpt}"
+                   th:classappend="${genreOpt == selectedGenre ? 'active' : ''}">
+                   Semua Genre
+                </a>
+            </div>
+
+            <div th:if="${movies == null or movies.empty}">
+                <p>Belum ada film yang tersedia untuk genre <span th:if="${selectedGenre != 'All'}" th:text="${selectedGenre}">ini</span><span th:if="${selectedGenre == 'All'}">apapun</span>.</p>
+            </div>
+
+            <div class="movie-grid" th:if="${movies != null and not movies.empty}">
+                <div th:each="movie : ${movies}" th:insert="~{fragments/movie-card :: movie-card(movie=${movie})}">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

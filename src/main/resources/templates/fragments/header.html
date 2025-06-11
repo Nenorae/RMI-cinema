@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    </head>
+<body>
+    <header th:fragment="navbar">
+        <div class="container">
+            <a th:href="@{/}" id="site-title-link"><h1 id="site-title">Movies Time</h1></a>
+            <nav>
+                <ul>
+                    <li><a th:href="@{/}">Beranda</a></li>
+                    <li><a th:href="@{/movies}">Film</a></li>
+                    <li><a th:href="@{/bookings/search}">Cari Booking</a></li>
+                    <li><a th:href="@{/dashboard}">Dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</body>
+</html>

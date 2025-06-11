@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Kursi - <th:block th:text="${showtime.movie.title}"></th:block></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section class="page-title-section">
+        <div class="container">
+            <h1 th:text="'Pilih Kursi untuk ' + ${showtime.movie.title}">Pilih Kursi</h1>
+            <p th:text="'Jadwal: ' + ${#temporals.format(showtime.showDate, 'dd MMM yy')} + ' ' + ${#temporals.format(showtime.showTime, 'HH:mm')} + ' - Studio ' + (${showtime.theater != null ? showtime.theater.name : 'N/A'})">Detail Jadwal</p>
+        </div>
+    </section>
+
+    <section id="seat-selection-content" class="movie-section">
+        <div class="container">
+            <div class="screen-indicator">LAYAR BIOSKOP DI SINI</div>
+
+            <div class="seat-map">
+                <th:block th:if="${seatsByRow == null or seatsByRow.empty}">
+                    <p>Denah kursi tidak tersedia.</p>
+                </th:block>
+                <th:block th:each="rowEntry : ${seatsByRow}">
+                    <div class="seat-row">
+                        <span class="seat-row-label" th:text="${rowEntry.key}">A</span> <th:block th:each="seat : ${rowEntry.value}">
+                           <div class="seat"
+                                th:classappend="${seatStatuses.get(seat.seatNumber) == 'BOOKED' ? 'booked' : (seatStatuses.get(seat.seatNumber) == 'AVAILABLE' ? 'available' : 'not-found')}"
+                                th:attr="data-seat-number=${seat.seatNumber}"
+                                th:text="${seat.seatNumber}">
+                                A1
+                           </div>
+                        </th:block>
+                    </div>
+                </th:block>
+            </div>
+            <div class="seat-legend">
+                <div class="legend-item"><span class="seat available"></span> Tersedia</div>
+                <div class="legend-item"><span class="seat selected"></span> Dipilih</div>
+                <div class="legend-item"><span class="seat booked"></span> Dipesan</div>
+            </div>
+
+            <form th:action="@{/booking}" method="get" id="seat-form">
+                <input type="hidden" name="showtimeId" th:value="${showtime.id}" />
+                <input type="hidden" name="selectedSeats" id="selectedSeatsInput" />
+                
+                <div class="booking-summary">
+                    <h4>Kursi Dipilih:</h4>
+                    <p id="selected-seats-display">- Belum ada kursi dipilih -</p>
+                    <p>Harga per Tiket: Rp <span th:text="${#numbers.formatDecimal(showtime.price, 0, 'POINT', 0, 'COMMA')}">0</span></p>
+                    <h4>Total Estimasi: <span id="total-price-display">Rp 0</span></h4>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="proceed-to-booking-btn" disabled>Lanjut ke Pembayaran</button>
+            </form>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const showtimePrice = parseFloat(/*[[${showtime.price}]]*/ '0'); // Pastikan ini angka
+        const selectedSeats = new Set();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const seatElements = document.querySelectorAll('.seat.available'); 
+            const selectedSeatsInput = document.getElementById('selectedSeatsInput');
+            const selectedSeatsDisplay = document.getElementById('selected-seats-display');
+            const totalPriceDisplay = document.getElementById('total-price-display');
+            const proceedButton = document.getElementById('proceed-to-booking-btn');
+
+            seatElements.forEach(seat => {
+                seat.addEventListener('click', function() {
+                    const seatNumber = this.getAttribute('data-seat-number');
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        selectedSeats.delete(seatNumber);
+                    } else {
+                        this.classList.add('selected');
+                        selectedSeats.add(seatNumber);
+                    }
+                    updateSelection();
+                });
+            });
+
+            function updateSelection() {
+                const seatsArray = Array.from(selectedSeats);
+                selectedSeatsInput.value = seatsArray.join(',');
+                
+                if (seatsArray.length > 0) {
+                    selectedSeatsDisplay.textContent = seatsArray.join(', ');
+                    proceedButton.disabled = false;
+                } else {
+                    selectedSeatsDisplay.textContent = '- Belum ada kursi dipilih -';
+                    proceedButton.disabled = true;
+                }
+                
+                const totalPrice = seatsArray.length * showtimePrice;
+                totalPriceDisplay.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            }
+        });
+        /*]]>*/
+    </script>
+</body>
+</html>

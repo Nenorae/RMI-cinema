@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konfirmasi Booking</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section class="page-title-section">
+      <div class="container">
+        <h1>Konfirmasi Pemesanan Tiket</h1>
+      </div>
+    </section>
+
+    <section id="booking-confirmation" class="movie-section">
+      <div class="container">
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}">Pesan Error</div>
+
+        <div class="booking-details" th:unless="${error}">
+          <h3>Detail Pesanan Anda:</h3>
+          <p><strong>Film:</strong> <span th:text="${showtime.movie.title}">Judul Film</span></p>
+          <p><strong>Jadwal:</strong> <span th:text="${#temporals.format(showtime.showDate, 'dd MMM yy')} + ' ' + ${#temporals.format(showtime.showTime, 'HH:mm')}">Tanggal Waktu</span></p>
+          <p><strong>Studio:</strong> <span th:text="${showtime.theater != null ? showtime.theater.name : 'N/A'}">Nama Studio</span></p>
+          <p><strong>Kursi Dipilih:</strong> <span th:text="${selectedSeatsString}">A1, A2</span> (<span th:text="${seatCount}">0</span> kursi)</p>
+          <p><strong>Total Harga:</strong> Rp <span th:text="${#numbers.formatDecimal(totalPrice, 0, 'POINT', 0, 'COMMA')}">0</span></p>
+        </div>
+
+        <form th:action="@{/booking}" th:object="${bookingRequest}" method="post" class="styled-form" th:unless="${error}">
+          <input type="hidden" th:field="*{showtimeId}" />
+
+          <th:block th:each="seatNum, iterStat : *{seatNumbers}">
+            <input type="hidden" th:name="'seatNumbers[' + ${iterStat.index} + ']'" th:value="${seatNum}" />
+          </th:block>
+          <h3>Data Pemesan:</h3>
+          <div class="form-group">
+            <label for="customerName">Nama Lengkap:</label>
+            <input type="text" id="customerName" th:field="*{customerName}" required />
+          </div>
+          <div class="form-group">
+            <label for="customerEmail">Email:</label>
+            <input type="email" id="customerEmail" th:field="*{customerEmail}" required />
+          </div>
+          <div class="form-group">
+            <label for="customerPhone">Nomor Telepon:</label>
+            <input type="tel" id="customerPhone" th:field="*{customerPhone}" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Proses Pemesanan</button>
+        </form>
+      </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cari Booking</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section class="page-title-section">
+      <div class="container">
+        <h1>Cari Pemesanan Anda</h1>
+      </div>
+    </section>
+
+    <section id="search-booking-form" class="movie-section">
+      <div class="container">
+        <p>Masukkan email atau nomor telepon yang digunakan saat pemesanan.</p>
+        <form th:action="@{/bookings/results}" method="get" class="styled-form">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" />
+          </div>
+          <p class="text-center" style="margin: 10px 0">ATAU</p>
+          <div class="form-group">
+            <label for="phone">Nomor Telepon:</label>
+            <input type="tel" id="phone" name="phone" />
+          </div>
+          <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+          <button type="submit" class="btn btn-primary">Cari Booking</button>
+        </form>
+      </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

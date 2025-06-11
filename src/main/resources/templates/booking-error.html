@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Gagal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section class="page-title-section error-bg">
+        <div class="container">
+            <h1>Pemesanan Gagal</h1>
+        </div>
+    </section>
+
+    <section id="booking-result" class="movie-section">
+        <div class="container text-center">
+             <div class="icon-error">&#10008;</div> <p>Maaf, terjadi kesalahan saat memproses pemesanan Anda.</p>
+            <p class="error-message" th:if="${error}" th:text="${error}">Detail error.</p>
+            <div style="margin-top: 30px;">
+                <a th:href="@{/}" class="btn btn-primary">Kembali ke Beranda</a>
+                <a th:href="@{/movies}" class="btn btn-secondary">Lihat Film Lain</a>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

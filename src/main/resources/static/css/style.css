@@ -1,0 +1,231 @@
+/* General Body & Container Styles (sama seperti sebelumnya) */
+body {
+    font-family: 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0;
+    line-height: 1.6; color: #ffffff; background-color: #0f171e;
+}
+.container { width: 85%; margin: auto; overflow: hidden; padding: 0 20px; }
+
+/* Header (sama seperti sebelumnya, mungkin dengan sedikit penyesuaian) */
+header { background: #232f3e; color: #fff; padding-top: 20px; min-height: 70px; border-bottom: #00a8e1 3px solid; }
+header #site-title-link { text-decoration: none; color: #fff; }
+header #site-title { float: left; margin: 0; font-size: 28px; color: #00a8e1; }
+header nav { float: right; margin-top: 10px; }
+header nav ul { margin: 0; padding: 0; list-style: none; }
+header nav ul li { display: inline; padding: 0 15px; }
+header nav ul li a { color: #fff; text-decoration: none; font-size: 18px; transition: color 0.3s ease; }
+header nav ul li a:hover { color: #00a8e1; }
+
+/* Hero Section (sama seperti sebelumnya) */
+#hero { min-height: 350px; background: linear-gradient(to right, rgba(15, 23, 30, 0.8) 0%, rgba(15, 23, 30, 0.4) 100%), url('https://via.placeholder.com/1920x500.png?text=Cinema+Banner') no-repeat center center/cover; text-align: center; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+#hero h2 { font-size: 40px; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
+#hero p { font-size: 18px; margin-bottom: 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.7); }
+.cta-button { display: inline-block; background: #00a8e1; color: #fff; padding: 12px 25px; text-decoration: none; font-size: 18px; border-radius: 5px; border: none; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; }
+.cta-button:hover { background: #0086b3; transform: translateY(-2px); }
+
+/* Movie Section & Grid (disempurnakan) */
+.movie-section { padding: 40px 0; text-align: center; }
+.movie-section.alt-bg { background-color: #1a242e; }
+.movie-section h3 { font-size: 28px; margin-bottom: 30px; color: #ffffff; }
+.movie-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+
+/* Movie Card (disempurnakan dari fragment) */
+.movie-card { background: #232f3e; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 15px; }
+.movie-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
+.movie-card img { width: 100%; height: 420px; /* Tinggi tetap untuk konsistensi / object-fit: cover; / Agar gambar tidak distorsi */ border-bottom: 1px solid #374151; }
+.movie-card h4 { font-size: 1.2em; margin: 15px 10px 5px 10px; color: #ffffff; }
+.movie-card p { font-size: 0.9em; color: #9ca3af; margin: 5px 10px; }
+.movie-card .btn { margin: 10px; }
+
+/* Tombol Umum */
+.btn { display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; border: none; font-size: 1em; }
+.btn-primary { background-color: #00a8e1; color: white; }
+.btn-primary:hover { background-color: #0086b3; transform: translateY(-1px); }
+.btn-secondary { background-color: #374151; color: white; }
+.btn-secondary:hover { background-color: #4b5563; transform: translateY(-1px); }
+.btn-small { padding: 6px 12px; font-size: 0.9em; }
+
+/* Page Title Section */
+.page-title-section { background-color: #232f3e; color: white; padding: 20px 0; text-align: center; margin-bottom: 30px; }
+.page-title-section h1 { margin: 0; font-size: 2.5em; }
+
+/* Movie Detail Page */
+.movie-detail-layout { display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 30px; }
+.poster-container { flex: 1; min-width: 250px; max-width: 350px; }
+.poster-container img { width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.info-container { flex: 2; min-width: 300px; text-align: left; }
+.info-container h3 { margin-top: 0; color: #ffffff; }
+.info-container p { margin-bottom: 10px; color: #e5e7eb; }
+
+/* Showtimes Table */
+.showtimes-table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #232f3e; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+.showtimes-table th, .showtimes-table td { border: 1px solid #374151; padding: 12px; text-align: left; }
+.showtimes-table th { background-color: #1a242e; color: #ffffff; font-weight: bold; }
+.showtimes-table tbody tr:nth-child(even) { background-color: #1a242e; }
+.showtimes-table tbody tr:hover { background-color: #374151; }
+
+/* Showtime List (untuk di Beranda) */
+.showtime-list { list-style: none; padding: 0; }
+.showtime-list li { background-color: #232f3e; padding: 15px; margin-bottom: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.showtime-list li strong { color: #00a8e1; }
+
+/* Filter Form */
+.filter-form { margin-top: 15px; margin-bottom: 20px; text-align: left; }
+.filter-form label { margin-right: 10px; font-weight: bold; color: #ffffff; }
+.filter-form select { padding: 8px; border-radius: 4px; border: 1px solid #374151; background-color: #232f3e; color: #ffffff; }
+
+/* Footer (sama seperti sebelumnya) */
+footer { background: #232f3e; color: #9ca3af; text-align: center; padding: 20px; margin-top: 30px; }
+
+/* Responsive (sama seperti sebelumnya, bisa disempurnakan lagi) */
+@media(max-width: 768px){
+    header #site-title, header nav { float: none; text-align: center; width: 100%; }
+    header nav ul li { display: block; padding: 10px 0; }
+    #hero h2 { font-size: 30px; }
+    .movie-grid { grid-template-columns: 1fr; }
+    .movie-detail-layout { flex-direction: column; }
+    .poster-container { max-width: 100%; }
+    .showtime-list li { flex-direction: column; align-items: flex-start; }
+    .showtime-list li .btn { margin-top: 10px; }
+}
+
+/* Seat Selection Page */
+.screen-indicator {
+    background-color: #232f3e;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.seat-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #1a242e;
+    border-radius: 5px;
+    overflow-x: auto; /* Jika baris kursi terlalu panjang */
+}
+
+.seat-row {
+    display: flex;
+    margin-bottom: 5px;
+    align-items: center;
+}
+.seat-row-label {
+    width: 20px; /* Lebar untuk label baris */
+    margin-right: 10px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+}
+
+.seat {
+    width: 30px;
+    height: 30px;
+    margin: 3px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    cursor: pointer;
+    border: 1px solid #374151;
+    box-sizing: border-box; /* Agar padding & border masuk dalam width/height */
+}
+
+.seat.available { background-color: #374151; /* Hijau muda */ border-color: #4b5563; color: #ffffff; }
+.seat.available:hover { background-color: #4b5563; }
+.seat.selected { background-color: #00a8e1; /* Biru muda */ border-color: #0086b3; color:white; }
+.seat.booked { background-color: #6b7280; /* Merah muda */ border-color: #9ca3af; color: #d1d5db; cursor: not-allowed; }
+
+.seat-legend { display: flex; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; margin: 0 10px; color: #ffffff; }
+.legend-item .seat { width: 20px; height: 20px; margin-right: 5px; cursor: default; }
+
+.booking-summary {
+    background-color: #232f3e;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #374151;
+}
+.booking-summary h4 { margin-top: 0; color: #00a8e1; }
+
+/* Styled Forms (untuk booking, search, dll) */
+.styled-form {
+    background-color: #232f3e;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    max-width: 600px;
+    margin: 20px auto;
+}
+.styled-form h3 { margin-top: 0; margin-bottom: 20px; text-align: center; color: #ffffff; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #ffffff; }
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="password"],
+.form-group select {
+    width: calc(100% - 22px); /* Kalkulasi padding + border */
+    padding: 10px;
+    border: 1px solid #374151;
+    border-radius: 4px;
+    background-color: #1a242e;
+    color: #ffffff;
+}
+.styled-form .cta-button { width: 100%; }
+
+/* Alert Messages */
+.alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+.alert-danger { color: #fca5a5; background-color: #431923; border-color: #7c2d35; }
+.alert-success { color: #86efac; background-color: #14532d; border-color: #166534; }
+
+/* Booking Success/Error Page */
+.text-center { text-align: center; }
+.icon-success { font-size: 50px; color: #10b981; margin-bottom: 15px; }
+.icon-error { font-size: 50px; color: #ef4444; margin-bottom: 15px; }
+.success-bg { background-color: #14532d; color: #86efac;}
+.error-bg { background-color: #431923; color: #fca5a5; }
+.error-message { color: #fca5a5; font-weight: bold; }
+
+/* Booking List & Item */
+.booking-list .booking-item {
+    background-color: #232f3e;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    border-left: 5px solid #00a8e1;
+}
+.booking-item h4 { margin-top: 0; color: #ffffff; }
+.booking-item p { margin: 5px 0; color: #e5e7eb; }
+.status-cancelled { color: #fca5a5; font-weight: bold; }
+.status-confirmed { color: #86efac; font-weight: bold; }
+
+
+/* Dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.dashboard-card {
+    background-color: #232f3e;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.dashboard-card h3 { margin-top: 0; color: #00a8e1; }
+.dashboard-metric { font-size: 2.5em; font-weight: bold; color: #ffffff; margin: 10px 0; }
+.upcoming-showtimes-dashboard h3 { text-align: left; margin-bottom: 15px; color: #ffffff; }

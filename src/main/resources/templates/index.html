@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Cinema XXI KW Super</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section id="hero">
+        <div class="container">
+            <h2>Selamat Datang di Bioskop Kesayangan Anda!</h2>
+            <p>Nikmati pengalaman menonton film terbaik dengan kualitas suara dan gambar memukau.</p>
+            <a th:href="@{/movies}" class="cta-button">Lihat Semua Film</a>
+        </div>
+    </section>
+
+    <section id="featured-movies" class="movie-section">
+        <div class="container">
+            <h3>Film Tayang & Segera Hadir</h3>
+            <div th:if="${movies == null or movies.empty}">
+                <p>Belum ada film yang tersedia saat ini.</p>
+            </div>
+            <div class="movie-grid" th:if="${movies != null and not movies.empty}">
+                <div th:each="movie : ${movies}" th:insert="~{fragments/movie-card :: movie-card(movie=${movie})}">
+                    </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="upcoming-showtimes" class="movie-section alt-bg">
+        <div class="container">
+            <h3>Jadwal Tayang Mendatang</h3>
+            <div th:if="${upcomingShowtimes == null or upcomingShowtimes.empty}">
+                <p>Belum ada jadwal tayang mendatang.</p>
+            </div>
+            <ul class="showtime-list" th:if="${upcomingShowtimes != null and not upcomingShowtimes.empty}">
+                <li th:each="showtime : ${upcomingShowtimes}">
+                    <strong th:text="${showtime.movie.title}">Judul Film</strong> - 
+                    <strong th:text="${showtime.movie.title}">Judul Film</strong> - 
+                    <span th:text="${#temporals.format(showtime.showDate, 'dd MMM yy')} + ' ' + ${#temporals.format(showtime.showTime, 'HH:mm')}">Tanggal Waktu</span> -
+                    Studio <span th:text="${showtime.theater != null ? showtime.theater.name : 'N/A'}">Nama Studio</span>
+                    (<a th:href="@{/showtimes/{id}/seats(id=${showtime.id})}" class="btn btn-secondary btn-small">Pilih Kursi</a>)
+                    (<a th:href="@{/showtimes/{id}/seats(id=${showtime.id})}" class="btn btn-secondary btn-small">Pilih Kursi</a>)
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

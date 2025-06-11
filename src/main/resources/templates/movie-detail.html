@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${movie.title} + ' - Detail Film'">Detail Film</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: navbar}"></div>
+
+    <section class="page-title-section">
+      <div class="container">
+        <h1 th:text="${movie.title}">Judul Film</h1>
+      </div>
+    </section>
+
+    <section id="movie-details-content" class="movie-section">
+      <div class="container">
+        <div class="movie-detail-layout">
+          <div class="poster-container">
+            <img th:src="${movie.posterUrl != null ? movie.posterUrl : '/images/default-poster.png'}" th:alt="${movie.title} + ' Poster'" onerror="this.onerror=null;this.src='/images/default-poster.png';" />
+          </div>
+          <div class="info-container">
+            <p><strong>Genre:</strong> <span th:text="${movie.genre}">Genre</span></p>
+            <p><strong>Durasi:</strong> <span th:text="${movie.duration}">0</span> Menit</p>
+            <p><strong>Rating:</strong> <span th:text="${movie.rating != null ? movie.rating : '-'}">Rating</span></p> <p><strong>Sinopsis:</strong></p>
+            <p th:text="${movie.description}">Sinopsis film.</p>
+          </div>
+        </div>
+
+        <h3>Jadwal Tayang</h3>
+        <div th:if="${showtimes == null or showtimes.empty}">
+          <p>Belum ada jadwal tayang untuk film ini.</p>
+        </div>
+        <table class="showtimes-table" th:if="${showtimes != null and not showtimes.empty}">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Waktu</th>
+              <th>Studio</th> <th>Harga Tiket</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="showtime : ${showtimes}">
+              <td th:text="${#temporals.format(showtime.showDate, 'dd MMM yy')}">Tanggal</td> <td th:text="${#temporals.format(showtime.showTime, 'HH:mm')}">Waktu</td>   <td th:text="${showtime.theater != null ? showtime.theater.name : 'N/A'}">Studio</td> <td th:text="'Rp ' + ${#numbers.formatDecimal(showtime.price, 0, 'POINT', 0, 'COMMA')}">Harga</td>
+              <td>
+                <a th:href="@{/showtimes/{id}/seats(id=${showtime.id})}" class="btn btn-primary btn-small">Pilih Kursi</a>
+              </td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: site-footer}"></div>
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

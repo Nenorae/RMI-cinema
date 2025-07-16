@@ -1,127 +1,127 @@
-# 🎟️ Proyek Gateway Tiket Bioskop
+# 🎟️ Cinema Ticket Gateway Project
 
-Selamat datang di Proyek Gateway Tiket Bioskop! Ini adalah aplikasi web sederhana yang dibuat dengan Spring Boot untuk memesan tiket film. Anggap saja aplikasi ini sebagai "gerbang" utama yang menyediakan antarmuka web yang ramah pengguna dan juga REST API. Tujuannya adalah untuk bisa dihubungkan dengan sistem backend lain yang lebih kompleks, misalnya melalui RMI (Remote Method Invocation).
+Welcome to the Cinema Ticket Gateway Project! This is a simple web application built with Spring Boot for booking movie tickets. Think of this application as the main "gateway" that provides a user-friendly web interface and a REST API. The goal is to be able to connect it with other, more complex backend systems, for example, via RMI (Remote Method Invocation).
 
-## ✨ Teknologi yang Digunakan
+## ✨ Technologies Used
 
-Proyek ini dibangun menggunakan beberapa teknologi modern dan keren:
+This project is built using several modern and cool technologies:
 
-*   **Java 17**: Versi Java yang modern dan stabil.
-*   **Spring Boot 3.5.0**: Framework utama yang membuat pengembangan jadi cepat dan mudah.
-*   **Spring Data JPA**: Untuk berkomunikasi dengan database tanpa perlu menulis query SQL yang rumit.
-*   **Thymeleaf**: Mesin template untuk membuat halaman web dinamis yang kita lihat di browser.
-*   **H2 Database**: Database super ringan yang berjalan di memori, cocok banget buat development dan testing.
-*   **Lombok**: Pustaka hebat untuk mengurangi kode-kode boilerplate (seperti getter, setter, constructor) secara otomatis.
-*   **RMI (Remote Method Invocation)**: Teknologi Java untuk "memanggil" fungsi dari aplikasi lain yang berjalan di komputer berbeda.
+*   **Java 17**: A modern and stable version of Java.
+*   **Spring Boot 3.5.0**: The main framework that makes development fast and easy.
+*   **Spring Data JPA**: For communicating with the database without writing complex SQL queries.
+*   **Thymeleaf**: A template engine to create the dynamic web pages we see in the browser.
+*   **H2 Database**: A super lightweight, in-memory database, perfect for development and testing.
+*   **Lombok**: A great library to automatically reduce boilerplate code (like getters, setters, constructors).
+*   **RMI (Remote Method Invocation)**: A Java technology to "call" methods from other applications running on different computers.
 
-## 🗄️ Struktur Database
+## 🗄️ Database Structure
 
-Di balik layar, aplikasi ini menyimpan semua data dalam beberapa tabel yang saling berhubungan:
+Behind the scenes, this application stores all data in several interconnected tables:
 
-*   `movie`: Menyimpan semua info film, mulai dari judul, durasi, genre, rating, sinopsis, sampai link posternya.
-*   `theater`: Berisi informasi tentang bioskop, seperti nama, lokasi, dan total kursinya.
-*   `showtime`: Mencatat jadwal tayang film di setiap bioskop, termasuk tanggal, jam, studio, dan harga tiket.
-*   `seat`: Menyimpan data setiap kursi di dalam studio, lengkap dengan statusnya (apakah sudah dipesan atau masih kosong).
-*   `booking`: Rekaman setiap transaksi pemesanan, seperti data pelanggan, waktu pesan, total bayar, dan statusnya.
-*   `booking_seat`: Tabel penghubung antara transaksi `booking` dan kursi `seat` yang dipilih.
+*   `movie`: Stores all movie info, from title, duration, genre, rating, synopsis, to the poster link.
+*   `theater`: Contains information about the cinemas, such as name, location, and total capacity.
+*   `showtime`: Records the screening schedule for films in each cinema, including date, time, screen number, and ticket price.
+*   `seat`: Stores data for each seat in a theater, complete with its status (whether it's booked or available).
+*   `booking`: A record of each booking transaction, such as customer data, booking time, total payment, and status.
+*   `booking_seat`: A join table linking the `booking` transaction with the selected `seat`.
 
-## 🚀 Fitur-Fitur Keren
+## 🚀 Cool Features
 
-Aplikasi ini punya beberapa fitur utama yang bisa kamu coba:
+This application has several key features you can try out:
 
-### 1. Tampilan Web (Frontend)
-*   **Beranda**: Langsung disambut dengan daftar film yang sedang tayang dan yang akan datang.
-*   **Daftar Film**: Lihat semua film yang ada dan filter berdasarkan genre favoritmu.
-*   **Detail Film**: Kepoin info lengkap sebuah film, dari sinopsis, rating, sampai semua jadwal tayangnya.
-*   **Pilih Kursi**: Antarmuka visual yang interaktif buat milih kursi kosong yang kamu mau.
-*   **Pesan Tiket**: Isi data dirimu di formulir sederhana untuk menyelesaikan pemesanan.
-*   **Cari Pesanan**: Lacak riwayat pesananmu dengan mudah, cukup masukkan email atau nomor telepon.
-*   **Dashboard**: Lihat statistik singkat seperti total film, jumlah pesanan, dan total pendapatan.
+### 1. Web Interface (Frontend)
+*   **Homepage**: You are immediately greeted with a list of currently playing and upcoming movies.
+*   **Movie List**: See all available movies and filter them by your favorite genre.
+*   **Movie Details**: Get the full scoop on a movie, from its synopsis and rating to all its showtimes.
+*   **Seat Selection**: An interactive visual interface to choose the available seats you want.
+*   **Book Ticket**: Fill in your details in a simple form to complete the booking.
+*   **Search Booking**: Easily track your booking history, just enter your email or phone number.
+*   **Dashboard**: View brief statistics like total movies, number of bookings, and total revenue.
 
 ### 2. REST API
-*   Menyediakan endpoint yang bisa diakses oleh aplikasi lain untuk mendapatkan data film, jadwal, dan info kursi.
-*   Memungkinkan sistem eksternal untuk membuat, melihat, dan mengelola pesanan tiket.
+*   Provides endpoints that can be accessed by other applications to get data on movies, schedules, and seat info.
+*   Allows external systems to create, view, and manage ticket bookings.
 
-### 3. Integrasi RMI
-*   Mengekspos layanan inti (`CinemaRemoteService` dan `BookingRemoteService`) lewat RMI.
-*   Ini artinya, aplikasi Java lain bisa "ngobrol" dan menggunakan fungsi dari sistem ini dari jarak jauh.
+### 3. RMI Integration
+*   Exposes core services (`CinemaRemoteService` and `BookingRemoteService`) via RMI.
+*   This means other Java applications can "talk to" and use functions from this system remotely.
 
-## 👍 Kelebihan vs. 👎 Kekurangan
+## 👍 Pros vs. 👎 Cons
 
-### Kelebihan
-*   **Arsitektur Rapi**: Strukturnya jelas banget, dengan pemisahan antara controller, service, repository, dan entity yang bikin kode gampang diurus.
-*   **Fleksibel**: Karena menyediakan tiga "pintu" (Web, REST API, dan RMI), aplikasi ini gampang diintegrasikan dengan sistem lain.
-*   **Modern**: Pakai versi terbaru Java dan Spring Boot, jadi fiturnya lengkap dan didukung penuh.
-*   **Mudah untuk Development**: Dengan H2 Database, kamu nggak perlu pusing setup database eksternal. Cukup jalankan dan semua siap!
+### Pros
+*   **Clean Architecture**: The structure is very clear, with a separation between controllers, services, repositories, and entities that makes the code easy to manage.
+*   **Flexible**: By providing three "doors" (Web, REST API, and RMI), this application is easy to integrate with other systems.
+*   **Modern**: Uses the latest versions of Java and Spring Boot, so it's feature-complete and fully supported.
+*   **Easy for Development**: With the H2 Database, you don't have to worry about setting up an external database. Just run it, and everything is ready!
 
-### Kekurangan
-*   **Tanpa Keamanan**: Belum ada sistem login atau otentikasi. Siapa saja bisa mengakses semua fitur tanpa batasan.
-*   **Manajemen Kursi Sederhana**: Status kursi dikelola secara terpusat, yang mungkin kurang ideal jika digunakan untuk banyak transaksi bersamaan (skala besar).
-*   **Belum Ada Pembayaran**: Proses pesannya belum nyambung ke sistem pembayaran online (payment gateway).
+### Cons
+*   **No Security**: There is no login or authentication system. Anyone can access all features without restrictions.
+*   **Simplified Seat Management**: Seat status is managed centrally, which might not be ideal for many concurrent transactions (large scale).
+*   **No Payment Integration**: The booking process is not yet connected to an online payment gateway.
 
-## ⚙️ Bagaimana Cara Kerjanya?
+## ⚙️ How It Works
 
-Secara singkat, alur kerja aplikasi ini seperti ini:
+In short, the application's workflow is as follows:
 
-1.  **Permintaan dari Browser**: Kamu klik sesuatu di web, dan browser mengirim permintaan (HTTP Request) ke server.
-2.  **Controller Menerima**: `Controller` menangkap permintaan itu dan tahu harus melakukan apa.
-3.  **Service Bekerja**: `Controller` kemudian "menyuruh" `Service` untuk menjalankan logika bisnisnya (misalnya, mengambil data film).
-4.  **Repository ke Database**: `Service` meminta data ke `Repository`, yang secara ajaib (lewat Spring Data JPA) menerjemahkannya menjadi query ke database.
-5.  **Data Jadi Objek**: Data dari database diubah menjadi objek Java (`Entity`).
-6.  **Tampil di Web**: `Controller` memberikan data tersebut ke `Thymeleaf` untuk dirangkai menjadi halaman HTML yang cantik dan dikirim kembali ke browsermu.
-7.  **Pintu RMI**: Secara terpisah, `RmiConfig` menyiapkan layanan RMI agar bisa dipanggil oleh aplikasi Java lain dari mana saja.
+1.  **Request from Browser**: You click something on the web, and the browser sends an HTTP Request to the server.
+2.  **Controller Receives**: The `Controller` catches the request and knows what to do.
+3.  **Service Acts**: The `Controller` then "tells" the `Service` to execute its business logic (e.g., fetching movie data).
+4.  **Repository to Database**: The `Service` requests data from the `Repository`, which magically (via Spring Data JPA) translates it into a database query.
+5.  **Data Becomes an Object**: Data from the database is converted into a Java (`Entity`) object.
+6.  **Displayed on the Web**: The `Controller` passes the data to `Thymeleaf` to be assembled into a beautiful HTML page and sent back to your browser.
+7.  **The RMI Door**: Separately, `RmiConfig` sets up the RMI services so they can be called by other Java applications from anywhere.
 
-## 💻 Cara Menjalankan Proyek
+## 💻 How to Run the Project
 
-Ingin mencoba menjalankan aplikasi ini di komputermu? Gampang!
+Want to try running this application on your computer? It's easy!
 
-**Syarat**: Pastikan kamu sudah punya **Java 17** dan **Maven**.
+**Prerequisites**: Make sure you have **Java 17** and **Maven** installed.
 
-**1. Clone Repositori:**
+**1. Clone the Repository:**
 ```sh
 git clone https://github.com/username/repository.git
 cd repository
 ```
 
-**2. Build Proyek:**
-Masuk ke direktori proyek dan jalankan perintah ini untuk build.
+**2. Build the Project:**
+Navigate to the project directory and run this command to build it.
 ```sh
 mvn clean install
 ```
 
-**3. Jalankan Aplikasi:**
+**3. Run the Application:**
 ```sh
 mvn spring-boot:run
 ```
 
-**4. Buka Aplikasi:**
-Buka browser dan pergi ke `http://localhost:8080`.
+**4. Access the Application:**
+Open your browser and go to `http://localhost:8080`.
 
-**5. Intip Database:**
-Penasaran sama isi databasenya? Buka `http://localhost:8080/h2-console` dan login dengan kredensial di `application.properties`.
+**5. Peek at the Database:**
+Curious about the database content? Go to `http://localhost:8080/h2-console` and log in with the credentials from `application.properties`.
 
-## 📦 Menjalankan di Komputer Lain
+## 📦 Running on Another Computer
 
-Mau pamer ke teman atau deploy di server? Kamu bisa bungkus aplikasi ini jadi satu file `.jar`.
+Want to show it off to a friend or deploy it on a server? You can package this application into a single `.jar` file.
 
-**1. Build JAR:**
+**1. Build the JAR:**
 ```sh
 mvn clean package
 ```
 
-**2. Salin JAR:**
-Temukan file `.jar` di dalam folder `target/` dan salin ke komputer tujuan.
+**2. Copy the JAR:**
+Find the `.jar` file inside the `target/` folder and copy it to the target computer.
 
-**3. Jalankan JAR:**
-Cukup jalankan dengan perintah berikut (pastikan komputer tujuan punya Java 17).
+**3. Run the JAR:**
+Just run it with the following command (make sure the target computer has Java 17).
 ```sh
-java -jar nama-file-aplikasimu.jar
+java -jar your-application-file.jar
 ```
 
-## ⚠️ Penanganan Error
+## ⚠️ Error Handling
 
-Spring Boot sudah cukup pintar menangani error. Tapi kalau kamu mau lebih spesifik:
+Spring Boot is smart enough to handle errors. But if you want to be more specific:
 
-*   **Halaman Error Cantik**: Buat file `error.html` di `src/main/resources/templates/` untuk menampilkan halaman error versimu sendiri.
-*   **Penanganan Spesifik**: Gunakan anotasi `@ExceptionHandler` di dalam `Controller` untuk menangani jenis error tertentu.
-*   **Penanganan Global**: Buat sebuah kelas dengan anotasi `@ControllerAdvice` untuk menangani semua error yang terjadi di seluruh aplikasi secara terpusat.
+*   **Custom Error Page**: Create an `error.html` file in `src/main/resources/templates/` to display your own version of an error page.
+*   **Specific Handling**: Use the `@ExceptionHandler` annotation inside a `Controller` to handle specific types of errors.
+*   **Global Handling**: Create a class with the `@ControllerAdvice` annotation to handle all errors that occur throughout the application centrally.
